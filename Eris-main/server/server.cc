@@ -19,8 +19,9 @@ using rocksdb::Status;
 using rocksdb::WriteBatch;
 using rocksdb::WriteOptions;
 rocksdb::WriteOptions* opts;
-std::string kDBPath_0 = "/home/lc427/lcc/Striding_RQ/RockDB_0";
-std::string kDBPath_1 = "/home/lc427/lcc/Striding_RQ/RockDB_1";
+std::string kDBPath_0 = "/home/RockDB_0";
+std::string kDBPath_1 = "/home/RockDB_1";
+std::string kDBPath_2 = "/home/RockDB_2";
 
 // parallism options
 #define GLOBAL_MAX_FLUSH_THREAD_NUM 12
@@ -46,10 +47,16 @@ std::string kDBPath_1 = "/home/lc427/lcc/Striding_RQ/RockDB_1";
 #define DISABLE_WALL false
 #define BLOOMFILTER_BITS_PER_KEY 10
 
-static uint32_t bitmap_0 = htonl(0x2);
-static int host_bitmap_0 = 0x2;
-static uint32_t bitmap_1 = htonl(0x4);
-static int host_bitmap_1 = 0x4;
+static uint32_t bitmap_0 = htonl(0x1);
+static int host_bitmap_0 = 0x1;
+static uint32_t bitmap_1 = htonl(0x2);
+static int host_bitmap_1 = 0x2;
+static uint32_t bitmap_2 = htonl(0x4);
+static int host_bitmap_2 = 0x4;
+// static uint32_t bitmap_0 = htonl(0x2);
+// static int host_bitmap_0 = 0x2;
+// static uint32_t bitmap_1 = htonl(0x4);
+// static int host_bitmap_1 = 0x4;
 static uint32_t bitmap = 0;
 static int host_bitmap = 0;
 uint16_t num_worker = htonl(0x3);
@@ -654,27 +661,33 @@ int main(int argc, char **argv)
     options.wal_bytes_per_sync = WAL_BYTES_PER_SYNC;
 
     opts = new rocksdb::WriteOptions;
-    if (argc < 4) {
-        printf("\nUsage %s [Thread_num] [isServer] [use mlx_[i]] \n\n", argv[0]);
+    if (argc < 5) {
+        printf("\nUsage %s [Thread_num] [isServer] [use mlx_[i]] [bitmap] \n\n", argv[0]);
         exit(1);
     }
 
     int num_thread = atoi(argv[1]);
     int isServer = atoi(argv[2]);
     mlx_i = atoi(argv[3]);
+    int bit = atoi(argv[4]);
 
 
     if (num_thread == 0)
         return -1;
     std::string DBPath;
-    if (mlx_i == 1) {
+    if (bit == 0) {
+        DBPath = kDBPath_0;
+        bitmap = bitmap_0;
+        host_bitmap = host_bitmap_0;
+    } else if (bit == 1) {
         DBPath = kDBPath_1;
         bitmap = bitmap_1;
         host_bitmap = host_bitmap_1;
-    } else {
-        bitmap = bitmap_0;
-        host_bitmap = host_bitmap_0;
-        DBPath = kDBPath_0;
+    } else 
+    {
+        DBPath = kDBPath_2;
+        bitmap = bitmap_2;
+        host_bitmap = host_bitmap_2;
     }
     printf("\nUsage [Thread_num %d] [isServer %d] [use mlx_[%d]] [bitmap %lu %d] \n\n", num_thread, isServer, mlx_i, bitmap, host_bitmap);
     Status stats = DB::Open(options, DBPath, &db);
