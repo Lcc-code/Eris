@@ -59,42 +59,21 @@ $ make
 ```
 #### Run Replica1
 ```
-# Usage %s [Thread_num] [isServer] [use mlx_[i]]
-$ sudo ./lc_server_app 1 1 1
+Usage %s [Thread_num] [isServer] [use mlx_[i]] [bitmap]
+$ sudo ./lc_server_app 1 1 1 1
 ```
 #### Run Replica2
 ```
-# Usage %s [Thread_num] [isServer] [use mlx_[i]]
-$ sudo ./lc_server_app 1 1 2
+Usage %s [Thread_num] [isServer] [use mlx_[i]] [bitmap]
+$ sudo ./lc_server_app 1 1 1 2
 ```
 #### Run Replica3
 ```
-# Usage %s [Thread_num] [isServer] [use mlx_[i]]
-$ sudo ./lc_server_app 1 1 3
+Usage %s [Thread_num] [isServer] [use mlx_[i]] [bitmap]
+$ sudo ./lc_server_app 1 1 1 3
 ```
 ####
-[server](Eris-main/server/server.cc)
-`
-static uint32_t bitmap_1 = htonl(0x1);
-
-static int host_bitmap_1 = 0x1;
-
-static uint32_t bitmap_0 = htonl(0x2);
-
-static int host_bitmap_0 = 0x2;
-
-static uint32_t bitmap_1 = htonl(0x4);
-
-static int host_bitmap_1 = 0x4;
-
-static uint32_t bitmap = 0;
-
-static int host_bitmap = 0;
-
-uint16_t num_worker = htonl(0x3);
-
-`
-
+Please modify the [server](Eris-main/server/server.cc)
 
 ### Run Client
 #### Complie Clients
