@@ -183,21 +183,7 @@ void main_loop(DMAcontext* dma, int thread_id, bool isServer,
                 break;
             }
             
-        }
-
-        // if (send_num % 10000 == 0)
-        // {
-        //     printf("send_num %d\n", send_num);
-        //     auto send_ting_1 = std::chrono::high_resolution_clock::now();
-
-        //     // send_ting = std::chrono::high_resolution_clock::now();
-        //     auto duration_ting = std::chrono::duration_cast<std::chrono::nanoseconds>(send_ting_1 - send_ting);
-        //     double Throughput_Mbps = 10000 * ALL_PACKET_SIZE * 8 / double(duration_ting.count() / 1000) * 1000 * 1000 / 1024 / 1024; // us * 1000 * 1000 * 1000 / 1024 / 1024;
-        //     double Throughput_Mops = Throughput_Mbps / (ALL_PACKET_SIZE * 8);
-        //     // std::cout << "Throughput: " <<  Throughput_Mbps << " mbps" << std::endl;
-        //     std::cout << "Throughput: " <<  Throughput_Mops << " mops" << std::endl;
-        //     send_ting = send_ting_1;
-        // }
+        
     }
     auto send_end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(send_end - send_timer);
